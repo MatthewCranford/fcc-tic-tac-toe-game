@@ -10,13 +10,23 @@ body {
   height: 350px;
 }
 
-.board__menu {
+.menu {
   height: 350px;
   width: 100%;
 }
 
-.board__menu-option {
+.menu__option {
   font-size: 1rem;
   cursor: pointer;
   width: 150px;
+}
+
+.game__square {
+  width: 100px;
+  height: 100px;
+  border: 2px solid white;
+  cursor: pointer;
+  display: flex;
+  font-size: 4rem;
+  justify-content: center;
 }
