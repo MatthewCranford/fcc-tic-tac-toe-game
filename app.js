@@ -5,6 +5,16 @@ let gameBoard = [
   [2, 0, 1]
 ];
 
+$('.game__square').click(function() {
+  updateGameBoard($(this));
+});
+
+function updateGameBoard(move) {
+  const row = move.parent().attr('data-row');
+  const square = move.attr('data-square');
+  console.log(row, square);
+}
+
 function displayGameBoard() {
   let rowId = 0;
   let squareId = 1;
@@ -22,5 +32,4 @@ function displayGameBoard() {
     rowId++;
   }
 }
-
 displayGameBoard();
