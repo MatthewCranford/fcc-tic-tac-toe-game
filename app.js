@@ -1,35 +1,41 @@
 // prettier-ignore
 let gameBoard = [
-  [1, 2, 1], 
-  [0, 2, 1], 
-  [2, 0, 1]
+  [0, 0, 0], 
+  [0, 0, 0], 
+  [0, 0, 0]
 ];
+const player = 1;
+const computer = 2;
 
 $('.game__square').click(function() {
   updateGameBoard($(this));
+  drawGameBoard();
 });
 
 function updateGameBoard(move) {
   const row = move.parent().attr('data-row');
   const square = move.attr('data-square');
-  console.log(row, square);
+  gameBoard[row][square] = player;
 }
 
-function displayGameBoard() {
+function drawGameBoard() {
   let rowId = 0;
-  let squareId = 1;
 
   for (let row of gameBoard) {
-    squareId = 0;
+    let squareId = 0;
+
     for (let square of row) {
       if (square === 1) {
-        $(`#row${rowId} div:nth-child(${squareId + 1})`).text('X');
+        $(`[data-row=${rowId}]`)
+          .children(`[data-square=${squareId}]`)
+          .text('X');
       } else if (square === 2) {
-        $(`#row${rowId} div:nth-child(${squareId + 1})`).text('O');
+        $(`[data-row=${rowId}]`)
+          .children(`[data-square=${squareId}]`)
+          .text('O');
       }
       squareId++;
     }
     rowId++;
   }
 }
-displayGameBoard();
