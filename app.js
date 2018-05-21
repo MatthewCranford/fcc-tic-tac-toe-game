@@ -20,7 +20,9 @@ $('.game__square').click(function() {
 });
 
 function updateGameBoard(row, square, player) {
+  if (gameBoard[row][square] !== computer) {
   gameBoard[row][square] = player;
+}
 }
 
 function drawGameBoard() {
