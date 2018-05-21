@@ -8,13 +8,18 @@ const player = 1;
 const computer = 2;
 
 $('.game__square').click(function() {
-  updateGameBoard($(this));
+  const row = $(this)
+    .parent()
+    .attr('data-row');
+  const square = $(this).attr('data-square');
+
+  updateGameBoard(row, square, player);
+  drawGameBoard();
+  computerMove();
   drawGameBoard();
 });
 
-function updateGameBoard(move) {
-  const row = move.parent().attr('data-row');
-  const square = move.attr('data-square');
+function updateGameBoard(row, square, player) {
   gameBoard[row][square] = player;
 }
 
@@ -38,4 +43,30 @@ function drawGameBoard() {
     }
     rowId++;
   }
+}
+
+function computerMove() {
+  let randRow = Math.floor(Math.random() * gameBoard.length);
+  let randSquare = Math.floor(Math.random() * gameBoard[0].length);
+  if (!gameOver()) {
+    while (
+      gameBoard[randRow][randSquare] === 1 ||
+      gameBoard[randRow][randSquare] === 2
+    ) {
+      randRow = Math.floor(Math.random() * gameBoard.length);
+      randSquare = Math.floor(Math.random() * gameBoard[0].length);
+    }
+    return updateGameBoard(randRow, randSquare, computer);
+  }
+}
+
+function gameOver() {
+  for (let row of gameBoard) {
+    for (let square of row) {
+      if (square === 0) {
+        return false;
+      }
+    }
+  }
+  return true;
 }
