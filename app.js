@@ -54,7 +54,7 @@ function drawGameBoard() {
 function computerMove() {
   let randRow = Math.floor(Math.random() * gameBoard.length);
   let randSquare = Math.floor(Math.random() * gameBoard[0].length);
-  if (!gameOver()) {
+  if (moveAvailable()) {
     while (
       gameBoard[randRow][randSquare] === 1 ||
       gameBoard[randRow][randSquare] === 2
@@ -64,19 +64,19 @@ function computerMove() {
     }
     return updateGameBoard(randRow, randSquare, computer);
   } else {
-    resetGameBoard();
+    // resetGameBoard();
   }
 }
 
-function gameOver() {
+function moveAvailable() {
   for (let row of gameBoard) {
     for (let square of row) {
       if (square === 0) {
-        return false;
+        return true;
       }
     }
   }
-  return true;
+  return false;
 }
 
 function resetGameBoard() {
