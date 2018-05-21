@@ -6,26 +6,34 @@ let gameBoard = [
 ];
 const player = 1;
 const computer = 2;
+let playerMoved;
 
 $('.game__square').click(function() {
   const row = $(this)
     .parent()
     .attr('data-row');
   const square = $(this).attr('data-square');
+  playerMoved = false;
 
   if (moveAvailable()) {
     updateGameBoard(row, square, player);
-    drawGameBoard();
-    computerMove();
-    drawGameBoard();
+    if (playerMoved) {
+      drawGameBoard();
+      computerMove();
+      drawGameBoard();
+    }
   } else {
     resetGameBoard();
   }
 });
 
 function updateGameBoard(row, square, player) {
-  if (gameBoard[row][square] !== computer) {
+  if (
+    gameBoard[row][square] !== computer &&
+    gameBoard[row][square] !== player
+  ) {
     gameBoard[row][square] = player;
+    playerMoved = true;
   }
 }
 
@@ -76,7 +84,6 @@ function moveAvailable() {
   for (let row of gameBoard) {
     for (let square of row) {
       if (square === 0) {
-        console.log('true');
         return true;
       }
     }
@@ -90,6 +97,5 @@ function resetGameBoard() {
       gameBoard[row][square] = 0;
     }
   }
-  console.log(gameBoard);
   drawGameBoard();
 }
