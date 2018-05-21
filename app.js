@@ -13,10 +13,14 @@ $('.game__square').click(function() {
     .attr('data-row');
   const square = $(this).attr('data-square');
 
-  updateGameBoard(row, square, player);
-  drawGameBoard();
-  computerMove();
-  drawGameBoard();
+  if (moveAvailable()) {
+    updateGameBoard(row, square, player);
+    drawGameBoard();
+    computerMove();
+    drawGameBoard();
+  } else {
+    resetGameBoard();
+  }
 });
 
 function updateGameBoard(row, square, player) {
@@ -72,6 +76,7 @@ function moveAvailable() {
   for (let row of gameBoard) {
     for (let square of row) {
       if (square === 0) {
+        console.log('true');
         return true;
       }
     }
