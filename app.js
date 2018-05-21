@@ -21,8 +21,8 @@ $('.game__square').click(function() {
 
 function updateGameBoard(row, square, player) {
   if (gameBoard[row][square] !== computer) {
-  gameBoard[row][square] = player;
-}
+    gameBoard[row][square] = player;
+  }
 }
 
 function drawGameBoard() {
@@ -40,6 +40,10 @@ function drawGameBoard() {
         $(`[data-row=${rowId}]`)
           .children(`[data-square=${squareId}]`)
           .text('O');
+      } else {
+        $(`[data-row=${rowId}]`)
+          .children(`[data-square=${squareId}]`)
+          .text('');
       }
       squareId++;
     }
@@ -59,6 +63,8 @@ function computerMove() {
       randSquare = Math.floor(Math.random() * gameBoard[0].length);
     }
     return updateGameBoard(randRow, randSquare, computer);
+  } else {
+    resetGameBoard();
   }
 }
 
@@ -71,4 +77,14 @@ function gameOver() {
     }
   }
   return true;
+}
+
+function resetGameBoard() {
+  for (let row = 0; row < gameBoard.length; row++) {
+    for (let square = 0; square < gameBoard.length; square++) {
+      gameBoard[row][square] = 0;
+    }
+  }
+  console.log(gameBoard);
+  drawGameBoard();
 }
