@@ -21,10 +21,20 @@ $('.game__square').click(function() {
   }
 });
 
+function moveAvailable() {
+  for (let row of gameBoard) {
+    for (let square of row) {
+      if (square === 0) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 function playerMove(row, square) {
   playerMoved = false;
   updateGameBoard(row, square, player);
-
   if (playerMoved) {
     computerMove();
     drawGameBoard();
@@ -43,12 +53,25 @@ function updateGameBoard(row, square, player) {
   }
 }
 
+function computerMove() {
+  let randRow = Math.floor(Math.random() * gameBoard.length);
+  let randSquare = Math.floor(Math.random() * gameBoard[0].length);
+  if (moveAvailable()) {
+    while (
+      gameBoard[randRow][randSquare] === 1 ||
+      gameBoard[randRow][randSquare] === 2
+    ) {
+      randRow = Math.floor(Math.random() * gameBoard.length);
+      randSquare = Math.floor(Math.random() * gameBoard[0].length);
+    }
+    return updateGameBoard(randRow, randSquare, computer);
+  }
+}
+
 function drawGameBoard() {
   let rowId = 0;
-
   for (let row of gameBoard) {
     let squareId = 0;
-
     for (let square of row) {
       if (square === 1) {
         $(`[data-row=${rowId}]`)
@@ -67,33 +90,6 @@ function drawGameBoard() {
     }
     rowId++;
   }
-}
-
-function computerMove() {
-  let randRow = Math.floor(Math.random() * gameBoard.length);
-  let randSquare = Math.floor(Math.random() * gameBoard[0].length);
-
-  if (moveAvailable()) {
-    while (
-      gameBoard[randRow][randSquare] === 1 ||
-      gameBoard[randRow][randSquare] === 2
-    ) {
-      randRow = Math.floor(Math.random() * gameBoard.length);
-      randSquare = Math.floor(Math.random() * gameBoard[0].length);
-    }
-    return updateGameBoard(randRow, randSquare, computer);
-  }
-}
-
-function moveAvailable() {
-  for (let row of gameBoard) {
-    for (let square of row) {
-      if (square === 0) {
-        return true;
-      }
-    }
-  }
-  return false;
 }
 
 function resetGameBoard() {
