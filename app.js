@@ -53,9 +53,22 @@ function updateGameBoard(row, square, player) {
 
     if (checkGameOver()) {
       drawGameBoard();
-      resetGameBoard();
+      displayOverlay();
+      var myVar = setTimeout(function() {
+        resetGameBoard();
+        removeOverlay();
+      }, 2000);
     }
   }
+}
+
+function displayOverlay() {
+  $('#overlay').css('display', 'flex');
+  $('#overlay-text').text('You win!');
+}
+
+function removeOverlay() {
+  $('#overlay').css('display', 'none');
 }
 
 function checkGameOver() {
