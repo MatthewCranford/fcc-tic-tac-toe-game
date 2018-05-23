@@ -35,8 +35,8 @@ function moveAvailable() {
 function playerMove(row, square) {
   playerMoved = false;
   updateGameBoard(row, square, player);
-  if (playerMoved) {
-    // computerMove();
+  if (playerMoved && !checkGameOver()) {
+    computerMove();
     drawGameBoard();
   }
 }
