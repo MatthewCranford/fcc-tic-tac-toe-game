@@ -6,14 +6,15 @@ body {
 }
 
 .game {
+  height: 350px;
   width: 100%;
   max-width: 510px;
-  height: 350px;
 }
 
 .menu {
   height: 350px;
   width: 100%;
+  max-width: 510px;
 }
 
 .menu__option {
