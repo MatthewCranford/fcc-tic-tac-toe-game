@@ -4,12 +4,18 @@ let gameBoard = [
   [0, 0, 0], 
   [0, 0, 0]
 ];
-const player = 1;
-const computer = 2;
+let player;
+let computer;
 let playerMoved;
 
 $('.menu__option').on('click', function() {
-  console.log($(this).attr('id'));
+  if ($(this).attr('id') === 'x') {
+    player = 1;
+    computer = 2;
+  } else {
+    player = 2;
+    computer = 1;
+  }
   $('.menu').css('display', 'none');
 });
 
@@ -52,10 +58,7 @@ function updateGameBoard(row, square, player) {
     gameBoard[row][square] !== player
   ) {
     gameBoard[row][square] = player;
-    if (player === 1) {
-      playerMoved = true;
-    }
-
+    playerMoved = true;
     if (checkGameOver()) {
       drawGameBoard();
       displayOverlay();

@@ -20,6 +20,7 @@ body {
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  background-color: #343a40;
 }
 
 .menu__option {
