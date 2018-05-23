@@ -8,7 +8,7 @@ const player = 1;
 const computer = 2;
 let playerMoved;
 
-$('.game__square').click(function() {
+$('.board__square').click(function() {
   const row = $(this)
     .parent()
     .attr('data-row');

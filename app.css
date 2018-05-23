@@ -5,27 +5,10 @@ body {
   height: 100vh;
 }
 
-.board {
+.game {
   width: 100%;
   max-width: 510px;
   height: 350px;
-}
-
-.game__overlay {
-  width: 300px;
-  position: absolute;
-  background-color: #e2e5e5b9;
-  height: 300px;
-  justify-content: center;
-  align-items: center;
-  display: none;
-}
-
-.game__overlay-text {
-  position: relative;
-  color: black;
-  font-size: 2.5rem;
-  font-weight: bold;
 }
 
 .menu {
@@ -47,4 +30,21 @@ body {
   display: flex;
   font-size: 4rem;
   justify-content: center;
+}
+
+.overlay {
+  width: 300px;
+  position: absolute;
+  background-color: #e2e5e5b9;
+  height: 300px;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.overlay-text {
+  position: relative;
+  color: black;
+  font-size: 2.5rem;
+  font-weight: bold;
 }
