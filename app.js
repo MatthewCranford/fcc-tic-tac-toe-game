@@ -36,7 +36,7 @@ function playerMove(row, square) {
   playerMoved = false;
   updateGameBoard(row, square, player);
   if (playerMoved) {
-    computerMove();
+    // computerMove();
     drawGameBoard();
   }
 }
@@ -50,6 +50,61 @@ function updateGameBoard(row, square, player) {
     if (player === 1) {
       playerMoved = true;
     }
+
+    if (checkGameOver()) {
+      drawGameBoard();
+      resetGameBoard();
+    }
+  }
+}
+
+function checkGameOver() {
+  if (checkRows() || checkCols() || checkDiagonal()) {
+    return true;
+  } else return false;
+}
+
+function checkRows() {
+  for (let row = 0; row < gameBoard.length; row++) {
+    if (
+      gameBoard[row][0] !== 0 &&
+      gameBoard[row][0] === gameBoard[row][1] &&
+      gameBoard[row][0] === gameBoard[row][2]
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function checkCols() {
+  for (let index = 0; index < 3; index++) {
+    if (
+      gameBoard[0][index] !== 0 &&
+      gameBoard[0][index] === gameBoard[1][index] &&
+      gameBoard[0][index] === gameBoard[2][index]
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function checkDiagonal() {
+  if (
+    gameBoard[0][0] !== 0 &&
+    gameBoard[0][0] === gameBoard[1][1] &&
+    gameBoard[0][0] === gameBoard[2][2]
+  ) {
+    return true;
+  } else if (
+    gameBoard[0][2] !== 0 &&
+    gameBoard[0][2] === gameBoard[1][1] &&
+    gameBoard[0][2] === gameBoard[2][0]
+  ) {
+    return true;
+  } else {
+    return false;
   }
 }
 
