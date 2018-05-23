@@ -8,6 +8,11 @@ const player = 1;
 const computer = 2;
 let playerMoved;
 
+$('.menu__option').on('click', function() {
+  console.log($(this).attr('id'));
+  $('.menu').css('display', 'none');
+});
+
 $('.board__square').click(function() {
   const row = $(this)
     .parent()
