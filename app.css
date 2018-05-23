@@ -28,7 +28,7 @@ body {
   width: 150px;
 }
 
-.game__square {
+.board__square {
   width: 100px;
   height: 100px;
   border: 2px solid white;
