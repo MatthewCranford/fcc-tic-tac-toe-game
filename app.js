@@ -28,17 +28,6 @@ $('.board__square').click(function() {
   playerMove(row, square);
 });
 
-function moveAvailable() {
-  for (let row of gameBoard) {
-    for (let square of row) {
-      if (square === 0) {
-        return true;
-      }
-    }
-  }
-  return false;
-}
-
 function playerMove(row, square) {
   playerMoved = false;
   updateGameBoard(row, square, player);
@@ -76,6 +65,41 @@ function updateGameBoard(row, square, move) {
   }
 }
 
+function moveAvailable() {
+  for (let row of gameBoard) {
+    for (let square of row) {
+      if (square === 0) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+function drawGameBoard() {
+  let rowId = 0;
+  for (let row of gameBoard) {
+    let squareId = 0;
+    for (let square of row) {
+      if (square === 1) {
+        $(`[data-row=${rowId}]`)
+          .children(`[data-square=${squareId}]`)
+          .text('X');
+      } else if (square === 2) {
+        $(`[data-row=${rowId}]`)
+          .children(`[data-square=${squareId}]`)
+          .text('O');
+      } else {
+        $(`[data-row=${rowId}]`)
+          .children(`[data-square=${squareId}]`)
+          .text('');
+      }
+      squareId++;
+    }
+    rowId++;
+  }
+}
+
 function displayOverlay(move) {
   $('#overlay').css('display', 'flex');
   if (winner) {
@@ -87,6 +111,15 @@ function displayOverlay(move) {
   } else {
     $('#overlay-text').text('Draw');
   }
+}
+
+function resetGameBoard() {
+  for (let row = 0; row < gameBoard.length; row++) {
+    for (let square = 0; square < gameBoard.length; square++) {
+      gameBoard[row][square] = 0;
+    }
+  }
+  drawGameBoard();
 }
 
 function removeOverlay() {
@@ -156,37 +189,4 @@ function computerMove() {
     }
     return updateGameBoard(randRow, randSquare, computer);
   }
-}
-
-function drawGameBoard() {
-  let rowId = 0;
-  for (let row of gameBoard) {
-    let squareId = 0;
-    for (let square of row) {
-      if (square === 1) {
-        $(`[data-row=${rowId}]`)
-          .children(`[data-square=${squareId}]`)
-          .text('X');
-      } else if (square === 2) {
-        $(`[data-row=${rowId}]`)
-          .children(`[data-square=${squareId}]`)
-          .text('O');
-      } else {
-        $(`[data-row=${rowId}]`)
-          .children(`[data-square=${squareId}]`)
-          .text('');
-      }
-      squareId++;
-    }
-    rowId++;
-  }
-}
-
-function resetGameBoard() {
-  for (let row = 0; row < gameBoard.length; row++) {
-    for (let square = 0; square < gameBoard.length; square++) {
-      gameBoard[row][square] = 0;
-    }
-  }
-  drawGameBoard();
 }
