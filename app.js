@@ -7,6 +7,7 @@ let gameBoard = [
 let player;
 let computer;
 let playerMoved;
+let winner;
 
 $('.menu__option').on('click', function() {
   if ($(this).attr('id') === 'x') {
@@ -24,12 +25,7 @@ $('.board__square').click(function() {
     .parent()
     .attr('data-row');
   const square = $(this).attr('data-square');
-
-  if (moveAvailable()) {
-    playerMove(row, square);
-  } else {
-    resetGameBoard();
-  }
+  playerMove(row, square);
 });
 
 function moveAvailable() {
@@ -52,27 +48,45 @@ function playerMove(row, square) {
   }
 }
 
-function updateGameBoard(row, square, player) {
+function updateGameBoard(row, square, move) {
   if (
     gameBoard[row][square] !== computer &&
     gameBoard[row][square] !== player
   ) {
-    gameBoard[row][square] = player;
+    gameBoard[row][square] = move;
     playerMoved = true;
-    if (checkGameOver()) {
+    if (!moveAvailable()) {
       drawGameBoard();
-      displayOverlay();
+      displayOverlay(move);
       var myVar = setTimeout(function() {
         resetGameBoard();
         removeOverlay();
       }, 2000);
     }
+    if (checkGameOver()) {
+      winner = true;
+      drawGameBoard();
+      displayOverlay(move);
+      var myVar = setTimeout(function() {
+        resetGameBoard();
+        removeOverlay();
+        winner = false;
+      }, 2000);
+    }
   }
 }
 
-function displayOverlay() {
+function displayOverlay(move) {
   $('#overlay').css('display', 'flex');
-  $('#overlay-text').text('You win!');
+  if (winner) {
+    if (player === move) {
+      $('#overlay-text').text('You win!');
+    } else {
+      $('#overlay-text').text('You lose!');
+    }
+  } else {
+    $('#overlay-text').text('Draw');
+  }
 }
 
 function removeOverlay() {
