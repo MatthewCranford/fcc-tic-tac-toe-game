@@ -180,13 +180,63 @@ function computerMove() {
   let randRow = Math.floor(Math.random() * gameBoard.length);
   let randSquare = Math.floor(Math.random() * gameBoard[0].length);
   if (moveAvailable()) {
-    while (
-      gameBoard[randRow][randSquare] === 1 ||
-      gameBoard[randRow][randSquare] === 2
-    ) {
-      randRow = Math.floor(Math.random() * gameBoard.length);
-      randSquare = Math.floor(Math.random() * gameBoard[0].length);
+    calculateMove();
+  }
+}
+let computerMoved;
+function calculateMove() {
+  if (gameBoard[1][1] === 0) {
+    updateGameBoard(1, 1, computer);
+  }
+  computerMoved = false;
+  scanRows();
+
+  console.log(computerMoved);
+  if (!computerMoved) {
+    console.log(computerMoved);
+    scanCols();
+    console.log(computerMoved);
+  }
+}
+
+function scanRows() {
+  for (let row = 0; row < gameBoard.length; row++) {
+    let count = 0;
+    for (let square = 0; square < gameBoard[row].length; square++) {
+      if (gameBoard[row][square] === player) {
+        count++;
+      }
     }
-    return updateGameBoard(randRow, randSquare, computer);
+    if (count === 2) {
+      for (let square = 0; square < gameBoard[row].length; square++) {
+        if (
+          gameBoard[row][square] !== player &&
+          gameBoard[row][square] !== computer
+        ) {
+          computerMoved = true;
+          return updateGameBoard(row, square, computer);
+        }
+      }
+    }
+  }
+}
+
+function scanCols() {
+  for (let i = 0; i < gameBoard.length; i++) {
+    let count = 0;
+
+    for (let row = 0; row < gameBoard.length; row++) {
+      if (gameBoard[row][i] === player) {
+        count++;
+      }
+      if (count === 2) {
+        for (let row = 0; row < gameBoard.length; row++) {
+          if (gameBoard[row][i] !== player && gameBoard[row][i] !== computer) {
+            computerMoved = true;
+            updateGameBoard(row, i, computer);
+          }
+        }
+      }
+    }
   }
 }
