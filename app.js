@@ -185,36 +185,33 @@ function computerMove() {
 }
 let computerMoved;
 function calculateMove() {
+  computerMoved = false;
   if (gameBoard[1][1] === 0) {
     updateGameBoard(1, 1, computer);
-  }
-  computerMoved = false;
-  scanRows();
-
-  console.log(computerMoved);
-  if (!computerMoved) {
-    console.log(computerMoved);
+  } else {
+    scanRows();
     scanCols();
-    console.log(computerMoved);
   }
 }
 
 function scanRows() {
-  for (let row = 0; row < gameBoard.length; row++) {
-    let count = 0;
-    for (let square = 0; square < gameBoard[row].length; square++) {
-      if (gameBoard[row][square] === player) {
-        count++;
-      }
-    }
-    if (count === 2) {
+  if (!computerMoved) {
+    for (let row = 0; row < gameBoard.length; row++) {
+      let count = 0;
       for (let square = 0; square < gameBoard[row].length; square++) {
-        if (
-          gameBoard[row][square] !== player &&
-          gameBoard[row][square] !== computer
-        ) {
-          computerMoved = true;
-          return updateGameBoard(row, square, computer);
+        if (gameBoard[row][square] === player) {
+          count++;
+        }
+      }
+      if (count === 2) {
+        for (let square = 0; square < gameBoard[row].length; square++) {
+          if (
+            gameBoard[row][square] !== player &&
+            gameBoard[row][square] !== computer
+          ) {
+            computerMoved = true;
+            return updateGameBoard(row, square, computer);
+          }
         }
       }
     }
@@ -222,18 +219,23 @@ function scanRows() {
 }
 
 function scanCols() {
-  for (let i = 0; i < gameBoard.length; i++) {
-    let count = 0;
+  if (!computerMoved) {
+    for (let i = 0; i < gameBoard.length; i++) {
+      let count = 0;
 
-    for (let row = 0; row < gameBoard.length; row++) {
-      if (gameBoard[row][i] === player) {
-        count++;
-      }
-      if (count === 2) {
-        for (let row = 0; row < gameBoard.length; row++) {
-          if (gameBoard[row][i] !== player && gameBoard[row][i] !== computer) {
-            computerMoved = true;
-            updateGameBoard(row, i, computer);
+      for (let row = 0; row < gameBoard.length; row++) {
+        if (gameBoard[row][i] === player) {
+          count++;
+        }
+        if (count === 2) {
+          for (let row = 0; row < gameBoard.length; row++) {
+            if (
+              gameBoard[row][i] !== player &&
+              gameBoard[row][i] !== computer
+            ) {
+              computerMoved = true;
+              updateGameBoard(row, i, computer);
+            }
           }
         }
       }
