@@ -241,4 +241,55 @@ function scanCols() {
       }
     }
   }
+
+function scanDiagonals() {
+  let leftDiagonalCount = 0;
+  let rightDiagonalCount = 0;
+  let leftClearRow = 0;
+  let leftClearSquare = 0;
+  let rightClearRow = 0;
+  let rightClearSquare = 0;
+
+  for (let row = 0; row < gameBoard.length; row++) {
+    if (row === 1 && gameBoard[row][1] === player) {
+      leftDiagonalCount++;
+      rightDiagonalCount++;
+    } else if (row === 0) {
+      if (gameBoard[row][0] === player) {
+        leftDiagonalCount++;
+      } else {
+        leftClearRow = row;
+        leftClearSquare = 0;
+      }
+      if (gameBoard[row][2] === player) {
+        rightDiagonalCount++;
+      } else {
+        rightClearRow = row;
+        rightClearSquare = 2;
+      }
+    } else if (row === 2) {
+      if (gameBoard[row][2] === player) {
+        leftDiagonalCount++;
+      } else {
+        leftClearRow = row;
+        leftClearSquare = 2;
+      }
+      if (gameBoard[row][0] === player) {
+        rightDiagonalCount++;
+      } else {
+        rightClearRow = row;
+        rightClearSquare = 0;
+      }
+    }
+  }
+  if (leftDiagonalCount === 2) {
+    if (gameBoard[leftClearRow][leftClearSquare] === 0) {
+      updateGameBoard(leftClearRow, leftClearSquare, computer);
+    }
+  }
+  if (rightDiagonalCount === 2) {
+    if (gameBoard[leftClearRow][leftClearSquare] === 0) {
+      updateGameBoard(rightClearRow, rightClearSquare, computer);
+    }
+  }
 }
