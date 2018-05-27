@@ -195,34 +195,34 @@ function calculateMove() {
   }
   if (!computerMoved) {
     scanDiagonals();
-}
+  }
   if (!computerMoved && gameBoard[1][1] === 0) {
     updateGameBoard(1, 1, computer);
   }
 }
 
 function scanRows() {
-    for (let row = 0; row < gameBoard.length; row++) {
+  for (let row = 0; row < gameBoard.length; row++) {
     let playerCount = 0;
     let computerCount = 0;
 
-      for (let square = 0; square < gameBoard[row].length; square++) {
-        if (gameBoard[row][square] === player) {
+    for (let square = 0; square < gameBoard[row].length; square++) {
+      if (gameBoard[row][square] === player) {
         playerCount++;
       } else if (gameBoard[row][square] === computer) {
         computerCount++;
+      }
+    }
+    if (computerCount === 2) {
+      for (let square = 0; square < gameBoard[row].length; square++) {
+        if (
+          gameBoard[row][square] !== player &&
+          gameBoard[row][square] !== computer
+        ) {
+          computerMoved = true;
+          return updateGameBoard(row, square, computer);
         }
       }
-    if (computerCount === 2) {
-        for (let square = 0; square < gameBoard[row].length; square++) {
-          if (
-            gameBoard[row][square] !== player &&
-            gameBoard[row][square] !== computer
-          ) {
-            computerMoved = true;
-            return updateGameBoard(row, square, computer);
-          }
-        }
     } else if (playerCount === 2) {
       for (let square = 0; square < gameBoard[row].length; square++) {
         if (
@@ -231,45 +231,47 @@ function scanRows() {
         ) {
           computerMoved = true;
           return updateGameBoard(row, square, computer);
+        }
       }
     }
   }
 }
-}
 
 function scanCols() {
-    for (let i = 0; i < gameBoard.length; i++) {
+  for (let i = 0; i < gameBoard.length; i++) {
     let playerCount = 0;
     let computerCount = 0;
 
-      for (let row = 0; row < gameBoard.length; row++) {
-        if (gameBoard[row][i] === player) {
+    for (let row = 0; row < gameBoard.length; row++) {
+      if (gameBoard[row][i] === player) {
         playerCount++;
       } else if (gameBoard[row][i] === computer) {
         computerCount++;
-        }
+      }
       if (computerCount === 2) {
-          for (let row = 0; row < gameBoard.length; row++) {
+        for (let row = 0; row < gameBoard.length; row++) {
           if (gameBoard[row][i] !== player && gameBoard[row][i] !== computer) {
-              computerMoved = true;
-              updateGameBoard(row, i, computer);
-            }
+            computerMoved = true;
+            updateGameBoard(row, i, computer);
           }
+        }
       } else if (playerCount === 2) {
         for (let row = 0; row < gameBoard.length; row++) {
           if (gameBoard[row][i] !== player && gameBoard[row][i] !== computer) {
             computerMoved = true;
             updateGameBoard(row, i, computer);
+          }
         }
       }
     }
   }
-  }
 }
 
 function scanDiagonals() {
-  let leftDiagonalCount = 0;
-  let rightDiagonalCount = 0;
+  let playerLeftDiagonalCount = 0;
+  let playerRightDiagonalCount = 0;
+  let computerLeftDiagonalCount = 0;
+  let computerRightDiagonalCount = 0;
   let leftClearRow = 0;
   let leftClearSquare = 0;
   let rightClearRow = 0;
@@ -277,43 +279,66 @@ function scanDiagonals() {
 
   for (let row = 0; row < gameBoard.length; row++) {
     if (row === 1 && gameBoard[row][1] === player) {
-      leftDiagonalCount++;
-      rightDiagonalCount++;
+      playerLeftDiagonalCount++;
+      playerRightDiagonalCount++;
+    } else if (row === 1 && gameBoard[row][1] === player) {
+      computerLeftDiagonalCount++;
+      computerRightDiagonalCount++;
     } else if (row === 0) {
       if (gameBoard[row][0] === player) {
-        leftDiagonalCount++;
+        playerLeftDiagonalCount++;
+      } else if (gameBoard[row][0] === computer) {
+        computerLeftDiagonalCount++;
       } else {
         leftClearRow = row;
         leftClearSquare = 0;
       }
       if (gameBoard[row][2] === player) {
-        rightDiagonalCount++;
+        playerRightDiagonalCount++;
+      } else if (gameBoard[row][2] === computer) {
+        computerRightDiagonalCount++;
       } else {
         rightClearRow = row;
         rightClearSquare = 2;
       }
     } else if (row === 2) {
       if (gameBoard[row][2] === player) {
-        leftDiagonalCount++;
+        playerLeftDiagonalCount++;
+      } else if (gameBoard[row][2] === computer) {
+        computerLeftDiagonalCount++;
       } else {
         leftClearRow = row;
         leftClearSquare = 2;
       }
       if (gameBoard[row][0] === player) {
-        rightDiagonalCount++;
+        playerRightDiagonalCount++;
+      } else if (gameBoard[row][0] === computer) {
+        computerRightDiagonalCount++;
       } else {
         rightClearRow = row;
         rightClearSquare = 0;
       }
     }
   }
-  if (leftDiagonalCount === 2) {
+  if (computerLeftDiagonalCount === 2) {
     if (gameBoard[leftClearRow][leftClearSquare] === 0) {
+      computerMoved = true;
+      updateGameBoard(leftClearRow, leftClearSquare, computer);
+    }
+  } else if (playerRightDiagonalCount === 2) {
+    if (gameBoard[leftClearRow][leftClearSquare] === 0) {
+      computerMoved = true;
       updateGameBoard(leftClearRow, leftClearSquare, computer);
     }
   }
-  if (rightDiagonalCount === 2) {
+  if (computerRightDiagonalCount === 2) {
     if (gameBoard[leftClearRow][leftClearSquare] === 0) {
+      computerMoved = true;
+      updateGameBoard(rightClearRow, rightClearSquare, computer);
+    }
+  } else if (playerRightDiagonalCount === 2) {
+    if (gameBoard[leftClearRow][leftClearSquare] === 0) {
+      computerMoved = true;
       updateGameBoard(rightClearRow, rightClearSquare, computer);
     }
   }
