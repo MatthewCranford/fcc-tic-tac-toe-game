@@ -239,26 +239,33 @@ function scanRows() {
 
 function scanCols() {
     for (let i = 0; i < gameBoard.length; i++) {
-      let count = 0;
+    let playerCount = 0;
+    let computerCount = 0;
 
       for (let row = 0; row < gameBoard.length; row++) {
         if (gameBoard[row][i] === player) {
-          count++;
+        playerCount++;
+      } else if (gameBoard[row][i] === computer) {
+        computerCount++;
         }
-        if (count === 2) {
+      if (computerCount === 2) {
           for (let row = 0; row < gameBoard.length; row++) {
-            if (
-              gameBoard[row][i] !== player &&
-              gameBoard[row][i] !== computer
-            ) {
+          if (gameBoard[row][i] !== player && gameBoard[row][i] !== computer) {
               computerMoved = true;
               updateGameBoard(row, i, computer);
             }
           }
+      } else if (playerCount === 2) {
+        for (let row = 0; row < gameBoard.length; row++) {
+          if (gameBoard[row][i] !== player && gameBoard[row][i] !== computer) {
+            computerMoved = true;
+            updateGameBoard(row, i, computer);
         }
       }
     }
   }
+  }
+}
 
 function scanDiagonals() {
   let leftDiagonalCount = 0;
