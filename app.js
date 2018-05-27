@@ -203,13 +203,17 @@ function calculateMove() {
 
 function scanRows() {
     for (let row = 0; row < gameBoard.length; row++) {
-      let count = 0;
+    let playerCount = 0;
+    let computerCount = 0;
+
       for (let square = 0; square < gameBoard[row].length; square++) {
         if (gameBoard[row][square] === player) {
-          count++;
+        playerCount++;
+      } else if (gameBoard[row][square] === computer) {
+        computerCount++;
         }
       }
-      if (count === 2) {
+    if (computerCount === 2) {
         for (let square = 0; square < gameBoard[row].length; square++) {
           if (
             gameBoard[row][square] !== player &&
@@ -219,6 +223,14 @@ function scanRows() {
             return updateGameBoard(row, square, computer);
           }
         }
+    } else if (playerCount === 2) {
+      for (let square = 0; square < gameBoard[row].length; square++) {
+        if (
+          gameBoard[row][square] !== player &&
+          gameBoard[row][square] !== computer
+        ) {
+          computerMoved = true;
+          return updateGameBoard(row, square, computer);
       }
     }
   }
