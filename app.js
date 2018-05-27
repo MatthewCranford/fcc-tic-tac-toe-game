@@ -183,19 +183,25 @@ function computerMove() {
     calculateMove();
   }
 }
-let computerMoved;
+
 function calculateMove() {
   computerMoved = false;
-  if (gameBoard[1][1] === 0) {
-    updateGameBoard(1, 1, computer);
-  } else {
+
+  if (!computerMoved) {
     scanRows();
+  }
+  if (!computerMoved) {
     scanCols();
+  }
+  if (!computerMoved) {
+    scanDiagonals();
+}
+  if (!computerMoved && gameBoard[1][1] === 0) {
+    updateGameBoard(1, 1, computer);
   }
 }
 
 function scanRows() {
-  if (!computerMoved) {
     for (let row = 0; row < gameBoard.length; row++) {
       let count = 0;
       for (let square = 0; square < gameBoard[row].length; square++) {
@@ -217,9 +223,9 @@ function scanRows() {
     }
   }
 }
+}
 
 function scanCols() {
-  if (!computerMoved) {
     for (let i = 0; i < gameBoard.length; i++) {
       let count = 0;
 
