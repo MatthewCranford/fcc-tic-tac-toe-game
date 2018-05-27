@@ -177,8 +177,6 @@ function checkDiagonal() {
 }
 
 function computerMove() {
-  let randRow = Math.floor(Math.random() * gameBoard.length);
-  let randSquare = Math.floor(Math.random() * gameBoard[0].length);
   if (moveAvailable()) {
     calculateMove();
   }
@@ -189,15 +187,35 @@ function calculateMove() {
 
   if (!computerMoved) {
     scanRows();
+    console.log('row', computerMoved);
   }
   if (!computerMoved) {
     scanCols();
+    console.log('col', computerMoved);
   }
   if (!computerMoved) {
     scanDiagonals();
+    console.log('diagonal', computerMoved);
   }
   if (!computerMoved && gameBoard[1][1] === 0) {
     updateGameBoard(1, 1, computer);
+  } else if (!computerMoved) {
+    generateRandomComputerMove();
+  }
+}
+
+function generateRandomComputerMove() {
+  let moveNotFound = true;
+
+  while (moveNotFound) {
+    let randRow = Math.floor(Math.random() * gameBoard.length);
+    let randSquare = Math.floor(Math.random() * gameBoard[0].length);
+
+    if (gameBoard[randRow][randSquare] === 0) {
+      moveNotFound = false;
+      computerMoved = true;
+      updateGameBoard(randRow, randSquare, computer);
+    }
   }
 }
 
@@ -220,7 +238,7 @@ function scanRows() {
           gameBoard[row][square] !== computer
         ) {
           computerMoved = true;
-          return updateGameBoard(row, square, computer);
+          updateGameBoard(row, square, computer);
         }
       }
     } else if (playerCount === 2) {
@@ -230,7 +248,7 @@ function scanRows() {
           gameBoard[row][square] !== computer
         ) {
           computerMoved = true;
-          return updateGameBoard(row, square, computer);
+          updateGameBoard(row, square, computer);
         }
       }
     }
