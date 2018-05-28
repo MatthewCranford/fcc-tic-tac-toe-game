@@ -338,26 +338,30 @@ function scanDiagonals() {
       }
     }
   }
-  if (computerLeftDiagonalCount === 2) {
-    if (gameBoard[leftClearRow][leftClearSquare] === 0) {
-      computerMoved = true;
-      updateGameBoard(leftClearRow, leftClearSquare, computer);
-    }
-  } else if (playerRightDiagonalCount === 2) {
-    if (gameBoard[leftClearRow][leftClearSquare] === 0) {
-      computerMoved = true;
-      updateGameBoard(leftClearRow, leftClearSquare, computer);
-    }
+  if (
+    computerLeftDiagonalCount === 2 &&
+    gameBoard[leftClearRow][leftClearSquare] === 0
+  ) {
+    computerMoved = true;
+    updateGameBoard(leftClearRow, leftClearSquare, computer);
+  } else if (
+    playerLeftDiagonalCount === 2 &&
+    gameBoard[leftClearRow][leftClearSquare] === 0
+  ) {
+    computerMoved = true;
+    updateGameBoard(leftClearRow, leftClearRow, computer);
   }
-  if (computerRightDiagonalCount === 2) {
-    if (gameBoard[leftClearRow][leftClearSquare] === 0) {
-      computerMoved = true;
-      updateGameBoard(rightClearRow, rightClearSquare, computer);
-    }
-  } else if (playerRightDiagonalCount === 2) {
-    if (gameBoard[leftClearRow][leftClearSquare] === 0) {
-      computerMoved = true;
-      updateGameBoard(rightClearRow, rightClearSquare, computer);
-    }
+  if (
+    computerRightDiagonalCount === 2 &&
+    gameBoard[rightClearRow][rightClearSquare] === 0
+  ) {
+    computerMoved = true;
+    updateGameBoard(rightClearRow, rightClearSquare, computer);
+  } else if (
+    playerRightDiagonalCount === 2 &&
+    gameBoard[rightClearRow][rightClearSquare] === 0
+  ) {
+    computerMoved = true;
+    updateGameBoard(rightClearRow, rightClearSquare, computer);
   }
 }
