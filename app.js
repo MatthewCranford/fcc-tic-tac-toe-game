@@ -262,7 +262,7 @@ function scanRows() {
           gameBoard[row][square] !== computer
         ) {
           computerMoved = true;
-          updateGameBoard(row, square, computer);
+          return updateGameBoard(row, square, computer);
         }
       }
     } else if (playerCount === 2) {
@@ -272,7 +272,7 @@ function scanRows() {
           gameBoard[row][square] !== computer
         ) {
           computerMoved = true;
-          updateGameBoard(row, square, computer);
+          return updateGameBoard(row, square, computer);
         }
       }
     }
