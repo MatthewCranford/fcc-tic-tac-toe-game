@@ -217,10 +217,25 @@ function calculateMove() {
 }
 
 function blockCorner() {
-  for (let row = 0; row < gameBoard.length; row += 2) {
-    for (let square = 0; square < gameBoard.length; square++) {
-      if (gameBoard[row][square] === player) {
-        cornersBlocked = true;
+  const topLeftCorner = gameBoard[0][0];
+  const bottomRightCorner = gameBoard[2][2];
+  const bottomLeftCorner = gameBoard[2][0];
+  const topRightCorner = gameBoard[0][2];
+  const counterMove = gameBoard[0][1];
+  const empty = 0;
+
+  if (
+    topLeftCorner === player &&
+    bottomRightCorner === player &&
+    counterMove === empty
+  ) {
+    computerMoved = true;
+    updateGameBoard(0, 1, computer);
+  } else if (
+    bottomLeftCorner === player &&
+    topRightCorner === player &&
+    counterMove === empty
+  ) {
         computerMoved = true;
         updateGameBoard(0, 1, computer);
       }
